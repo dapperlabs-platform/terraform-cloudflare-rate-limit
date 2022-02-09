@@ -1,22 +1,27 @@
 variable "domain" {
   type        = string
-  description = "Cloudflare Domain to be applied to"
+  description = "The DNS zone ID to apply rate limiting to"
 }
 
 variable "threshold" {
   type        = number
-  description = "Combines with period, "
+  description = "The threshold that triggers the rate limit mitigations (min: 2, max: 1,000,000)"
 }
 
 variable "period" {
   type        = number
-  description = "time in SECONDS to count for the traffic (min: 1 second, max 86400 seconds)"
+  description = "Time in SECONDS to count requests (min: 10 seconds, max 86,400 seconds)"
+  default     = 10
+  validation {
+    condition     = var.period >= 10
+    error_message = "The period should be at least 10"
+  }
 }
 
 variable "disabled" {
   type        = bool
   default     = true
-  description = "Wether this rate limit rule is Disabled"
+  description = "Whether this ratelimit is currently disabled"
 }
 
 variable "description" {
@@ -28,17 +33,16 @@ variable "description" {
 variable "bypass_url_patterns" {
   type        = list(string)
   default     = null
-  description = "URLs Matching pattern would be excluded, and allowed to be passed (ignores rate limit)"
+  description = "URLs matching the patterns specified here will be excluded from rate limiting"
 }
 
 variable "correlate_by" {
   type        = string
-  description = "if there is a NAT support"
+  description = "Determines how rate limiting is applied. By default if not specified, rate limiting applies to the clients IP address"
   default     = null
 }
 
 variable "request" {
-
   type = object({
     url_pattern = string
     schemes     = list(string)
