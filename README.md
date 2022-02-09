@@ -33,7 +33,7 @@ module "module_name" {
    #response = null
  }
 
- domain = var.domains
+ domain = var.domain
 }
 
 ```
