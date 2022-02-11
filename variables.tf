@@ -14,7 +14,7 @@ variable "period" {
   default     = 10
   validation {
     condition     = var.period < 10
-    error_message = "The period should be at least 10"
+    error_message = "The period should be at least 10."
   }
 }
 
