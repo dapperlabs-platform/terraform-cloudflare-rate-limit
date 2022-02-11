@@ -13,7 +13,7 @@ variable "period" {
   description = "Time in SECONDS to count requests (min: 10 seconds, max 86,400 seconds)"
   default     = 10
   validation {
-    condition     = var.period >= 10
+    condition     = var.period < 10
     error_message = "The period should be at least 10"
   }
 }
