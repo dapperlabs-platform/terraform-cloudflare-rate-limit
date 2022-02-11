@@ -44,7 +44,10 @@ resource "cloudflare_rate_limit" "limit" {
     }
   }
 
-  correlate {
-    by = var.correlate_by
+  dynamic "correlate" {
+    for_each = var.correlate_by == null ? [] : [1]
+    content {
+      by = var.correlate_by
+    }
   }
 }
