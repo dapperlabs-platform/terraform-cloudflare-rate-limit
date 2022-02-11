@@ -13,8 +13,8 @@ variable "period" {
   description = "Time in SECONDS to count requests (min: 10 seconds, max 86,400 seconds)"
   default     = 10
   validation {
-    condition     = var.period < 10
-    error_message = "The period should be at least 10"
+    condition     = var.period >= 10
+    error_message = "The period should be at least 10."
   }
 }
 
@@ -43,6 +43,7 @@ variable "correlate_by" {
 }
 
 variable "request" {
+  description = "Matches HTTP requests (from the client to Cloudflare)"
   type = object({
     url_pattern = string
     schemes     = list(string)
@@ -51,6 +52,7 @@ variable "request" {
 }
 
 variable "response" {
+  description = "Matches HTTP responses before they are returned to the client from Cloudflare. If this is defined, then the entire counting of traffic occurs at this stage"
   type = object({
     statuses       = list(number)
     origin_traffic = bool
@@ -60,21 +62,21 @@ variable "response" {
       value = string
     }))
   })
-
-  default = {
-    statuses       = null
-    origin_traffic = null
-    headers        = null
-  }
+  default = null
 }
 
 variable "action" {
-  type = object({
-    mode    = string
-    timeout = number
-    response = object({
-      content_type = string
-      body         = string
-    })
-  })
+  description = <<EOT
+    The action to be performed when the threshold of matched traffic within the period defined is exceeded."
+    {
+      mode    = string
+      timeout = number
+      response = object({
+        content_type = string
+        body         = string
+      })
+    }
+  EOT
+  type        = any
+  default     = null
 }

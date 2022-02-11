@@ -21,10 +21,13 @@ resource "cloudflare_rate_limit" "limit" {
       methods     = var.request.methods
     }
 
-    response {
-      statuses       = var.response.statuses
-      origin_traffic = var.response.origin_traffic
-      headers        = var.response.headers
+    dynamic "response" {
+      for_each = var.response == null ? [] : [1]
+      content {
+        statuses       = var.response.statuses
+        origin_traffic = var.response.origin_traffic
+        headers        = var.response.headers
+      }
     }
   }
 
@@ -33,7 +36,7 @@ resource "cloudflare_rate_limit" "limit" {
     timeout = var.action.timeout
 
     dynamic "response" {
-      for_each = var.action.response == null ? [] : [1]
+      for_each = try(var.action.response, null) == null ? [] : [1]
       content {
         content_type = var.action.response.content_type
         body         = var.action.response.body
