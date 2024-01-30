@@ -2,7 +2,7 @@
 
 data "cloudflare_zones" "zone" {
   filter {
-    name = var.domain
+    name = var.domains
   }
 }
 

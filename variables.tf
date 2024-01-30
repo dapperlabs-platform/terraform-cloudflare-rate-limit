@@ -1,4 +1,4 @@
-variable "domain" {
+variable "domains" {
   type        = string
   description = "The DNS zone ID to apply rate limiting to"
 }
