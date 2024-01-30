@@ -91,9 +91,9 @@ variable "ratelimit_rules" {
     }))
     ratelimit = map(object({
       characteristics     = string,
-      period              = string,
-      requests_per_period = string,
-      mitigation_timeout  = string,
+      period              = number,
+      requests_per_period = number,
+      mitigation_timeout  = number,
     }))
   }))
 }
