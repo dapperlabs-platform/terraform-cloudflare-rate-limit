@@ -81,7 +81,7 @@ variable "domain" {
 #  default     = null
 #}
 
-variable "ratelimit_rules" {
+variable "rate_limit_rules" {
   type = map(object({
     rules = map(object({
       action      = string,
@@ -89,7 +89,7 @@ variable "ratelimit_rules" {
       description = string,
       enabled     = bool,
     }))
-    ratelimit = map(object({
+    rate_limit = map(object({
       characteristics     = string,
       period              = number,
       requests_per_period = number,
