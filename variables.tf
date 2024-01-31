@@ -84,13 +84,18 @@ variable "domains" {
 
 variable "rate_limit_rules" {
   type = map(object({
-    action              = string,
-    expression          = string,
-    description         = string,
-    enabled             = bool,
-    characteristics     = list(string),
-    period              = number,
-    requests_per_period = number,
-    mitigation_timeout  = number,
+    description = string,
+    expression  = string,
+    action      = string,
+    enabled     = bool,
+
+    characteristics            = list(string),
+    counting_expression        = optional(string),
+    requests_per_period        = number,
+    period                     = number,
+    requests_to_origin         = optional(bool, true),
+    score_per_period           = optional(number),
+    score_response_header_name = optional(string),
+    mitigation_timeout         = number,
   }))
 }
