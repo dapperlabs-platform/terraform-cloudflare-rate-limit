@@ -1,6 +1,7 @@
 variable "domains" {
-  type        = string
-  description = "The DNS zone ID to apply rate limiting to"
+  type        = list(string)
+  description = "Cloudflare Domain to be applied to"
+  default     = []
 }
 
 #variable "threshold" {
