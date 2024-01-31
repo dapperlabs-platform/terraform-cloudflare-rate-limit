@@ -11,7 +11,7 @@ variable "rate_limit_rules" {
     action      = string,
     enabled     = bool,
 
-    characteristics            = optiona(list(string), (["cf.colo.id", "ip.src"])),
+    characteristics            = optional(list(string), (["cf.colo.id", "ip.src"])),
     counting_expression        = optional(string),
     requests_per_period        = number,
     period                     = number,
