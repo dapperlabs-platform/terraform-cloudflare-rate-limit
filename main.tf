@@ -1,8 +1,11 @@
 # Cloudflare Rate limit
+data "cloudflare_zones" "zones" {
+  count = length(var.domains)
 
-data "cloudflare_zones" "zone" {
   filter {
-    name = var.domains
+    name        = var.domains[count.index]
+    lookup_type = "exact"
+    paused      = false
   }
 }
 
@@ -61,19 +64,19 @@ resource "cloudflare_ruleset" "zone_level_ratelimit" {
   phase       = "http_ratelimit"
 
   dynamic "rules" {
-    for_each = var.rate_limit_rules
+    for_each = var.rate_limit_rules.rules
     content {
       action      = rules.value.action
       expression  = rules.value.expression
       description = rules.value.description
       enabled     = rules.value.enabled
       dynamic "ratelimit" {
-        for_each = var.rate_limit_rules
+        for_each = var.rate_limit_rules.rate_limit
         content {
-          characteristics     = rate_limit.value.characteristics
-          period              = rate_limit.value.period
-          requests_per_period = rate_limit.value.requests_per_period
-          mitigation_timeout  = rate_limit.value.mitigation_timeout
+          characteristics     = ratelimit.value.characteristics
+          period              = ratelimit.value.period
+          requests_per_period = ratelimit.value.requests_per_period
+          mitigation_timeout  = ratelimit.value.mitigation_timeout
         }
       }
     }
