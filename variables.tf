@@ -6,11 +6,12 @@ variable "domains" {
 
 variable "rate_limit_rules" {
   type = map(object({
+    # rules block
     description = string,
     expression  = string,
     action      = string,
     enabled     = bool,
-
+    # ratelimit block
     characteristics            = optional(list(string), (["cf.colo.id", "ip.src"])),
     counting_expression        = optional(string),
     requests_per_period        = number,
