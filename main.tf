@@ -59,11 +59,10 @@ data "cloudflare_zones" "zones" {
 resource "cloudflare_ruleset" "zone_level_ratelimit" {
   count = length(var.domains)
 
-  zone_id     = lookup(data.cloudflare_zones.zone.zones[0], "id")
-  name        = "Rate limiting for my zone"
-  description = ""
-  kind        = "zone"
-  phase       = "http_ratelimit"
+  zone_id = lookup(data.cloudflare_zones.zones[count.index].zones[0], "id")
+  name    = "Rate limiting for my zone"
+  kind    = "zone"
+  phase   = "http_ratelimit"
 
   dynamic "rules" {
     for_each = var.rate_limit_rules

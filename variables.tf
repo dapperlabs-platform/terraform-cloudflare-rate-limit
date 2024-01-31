@@ -85,16 +85,16 @@ variable "domains" {
 variable "rate_limit_rules" {
   type = list(object({
     rules = list(object({
-      action      = string
-      expression  = string
-      description = string
-      enabled     = bool
+      action      = string,
+      expression  = string,
+      description = string,
+      enabled     = bool,
     }))
     rate_limit = list(object({
-      characteristics     = string
-      period              = number
-      requests_per_period = number
-      mitigation_timeout  = number
+      characteristics     = string,
+      period              = number,
+      requests_per_period = number,
+      mitigation_timeout  = number,
     }))
   }))
 }
