@@ -57,6 +57,8 @@ data "cloudflare_zones" "zones" {
 #
 #
 resource "cloudflare_ruleset" "zone_level_ratelimit" {
+  count = length(var.domains)
+
   zone_id     = lookup(data.cloudflare_zones.zone.zones[0], "id")
   name        = "Rate limiting for my zone"
   description = ""
