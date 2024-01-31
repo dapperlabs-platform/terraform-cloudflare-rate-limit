@@ -83,18 +83,18 @@ variable "domains" {
 #}
 
 variable "rate_limit_rules" {
-  type = list(object({
-    rules = list(object({
-      action      = string,
-      expression  = string,
-      description = string,
-      enabled     = bool,
-    }))
-    rate_limit = list(object({
-      characteristics     = string,
-      period              = number,
-      requests_per_period = number,
-      mitigation_timeout  = number,
-    }))
+  type = map(object({
+    action      = string,
+    expression  = string,
+    description = string,
+    enabled     = bool,
+  }))
+}
+variable "rate_limit_config" {
+  type = map(object({
+    characteristics     = string,
+    period              = number,
+    requests_per_period = number,
+    mitigation_timeout  = number,
   }))
 }
