@@ -82,19 +82,15 @@ variable "domains" {
 #  default     = null
 #}
 
-variable "rate_limit" {
+variable "rate_limit_config" {
   type = map(object({
-    rate_limit_rules = {
-      action      = string,
-      expression  = string,
-      description = string,
-      enabled     = bool,
-    },
-    rate_limit_config = {
-      characteristics     = string,
-      period              = number,
-      requests_per_period = number,
-      mitigation_timeout  = number,
-    },
+    action              = string,
+    expression          = string,
+    description         = string,
+    enabled             = bool,
+    characteristics     = string,
+    period              = number,
+    requests_per_period = number,
+    mitigation_timeout  = number,
   }))
 }

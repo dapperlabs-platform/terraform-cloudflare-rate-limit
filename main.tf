@@ -65,21 +65,27 @@ resource "cloudflare_ruleset" "zone_level_ratelimit" {
   phase   = "http_ratelimit"
 
   dynamic "rules" {
-    for_each = var.rate_limit.rate_limit_rules
+    for_each = var.rate_limit_config
     content {
       action      = rules.value.action
       expression  = rules.value.expression
       description = rules.value.description
       enabled     = rules.value.enabled
-      dynamic "ratelimit" {
-        for_each = var.rate_limit.rate_limit_config
-        content {
-          characteristics     = ratelimit.value.characteristics
-          period              = ratelimit.value.period
-          requests_per_period = ratelimit.value.requests_per_period
-          mitigation_timeout  = ratelimit.value.mitigation_timeout
-        }
+      ratelimit {
+        characteristics     = rules.value.characteristics
+        period              = rules.value.period
+        requests_per_period = rules.value.requests_per_period
+        mitigation_timeout  = rules.value.mitigation_timeout
       }
+      #dynamic "ratelimit" {
+      #  for_each = var.rate_limit
+      #  content {
+      #    characteristics     = ratelimit.value.characteristics
+      #    period              = ratelimit.value.period
+      #    requests_per_period = ratelimit.value.requests_per_period
+      #    mitigation_timeout  = ratelimit.value.mitigation_timeout
+      #  }
+      #}
     }
   }
 }
