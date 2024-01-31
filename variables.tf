@@ -82,7 +82,7 @@ variable "domains" {
 #  default     = null
 #}
 
-variable "rate_limit_config" {
+variable "rate_limit_rules" {
   type = map(object({
     action      = string,
     expression  = string,

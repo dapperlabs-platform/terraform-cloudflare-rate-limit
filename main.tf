@@ -65,7 +65,7 @@ resource "cloudflare_ruleset" "zone_level_ratelimit" {
   phase   = "http_ratelimit"
 
   dynamic "rules" {
-    for_each = var.rate_limit_config
+    for_each = var.rate_limit_rules
     content {
       action      = rules.value.action
       expression  = rules.value.expression
