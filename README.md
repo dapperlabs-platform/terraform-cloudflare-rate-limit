@@ -23,11 +23,10 @@ module "module_name" {
     "rate_limit_name" = {
       action              = "block",
       expression          = <<EOT
-        http.request.full_uri eq "api.cryptokitties.dapperlabs.comconsumer/graphql*"
+        http.request.full_uri eq "api.domain.com"
         EOT
       description         = "quick test rate limit",
       enabled             = false,
-      characteristics     = ["cf.colo.id", "ip.src"]
       period              = 60, # seconds
       requests_per_period = 100,
       mitigation_timeout  = 600, # seconds
