@@ -72,7 +72,7 @@ resource "cloudflare_ruleset" "zone_level_ratelimit" {
       description = rules.value.description
       enabled     = rules.value.enabled
       ratelimit {
-        #characteristics     = rules.value.characteristics
+        characteristics     = rules.value.characteristics
         period              = rules.value.period
         requests_per_period = rules.value.requests_per_period
         mitigation_timeout  = rules.value.mitigation_timeout
