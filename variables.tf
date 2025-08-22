@@ -12,7 +12,7 @@ variable "rate_limit_rules" {
     action      = string,
     enabled     = bool,
     # ratelimit block
-    characteristics            = optional(list(string), (["cf.colo.id", "ip.src"])),
+    characteristics            = optional(list(string), (["cf.unique_visitor_id"])),
     counting_expression        = optional(string),
     requests_per_period        = number,
     period                     = number,
